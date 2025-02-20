@@ -1,7 +1,7 @@
-import { Client } from "../entities/client/client";
-import { clientId } from "../entities/client/clientId";
+import { Client } from "../entities/client";
+import { clientId } from "../valueObjects/client/clientId";
 
-export interface ClientRepository {
+export interface IClientRepository {
   createClient(client: Client): Promise<void>;
   getClients(): Promise<Client[]>;
   getClientById(id: clientId): Promise<Client | null>;

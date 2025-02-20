@@ -8,7 +8,7 @@ import { PostgreSQLRepository } from "../infrastructure/repositories/clientPostg
 const ClientRepository = new PostgreSQLRepository("url");
 
 export const ServiceContainer = {
-  user: {
+  client: {
     getClients: new GetClients(ClientRepository),
     getClientById: new GetClientById(ClientRepository),
     createClient: new CreateClient(ClientRepository),

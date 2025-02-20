@@ -1,10 +1,10 @@
 import { Pool } from "pg";
-import { ClientRepository } from "../../domain/repositories/IClientRepository";
-import { Client } from "../../domain/entities/client/client";
-import { clientId } from "../../domain/entities/client/clientId";
-import { clientName } from "../../domain/entities/client/clientName";
-import { clientEmail } from "../../domain/entities/client/clientEmail";
-import { clientPhone } from "../../domain/entities/client/clientPhone";
+import { IClientRepository } from "../../domain/repositories/IClientRepository";
+import { Client } from "../../domain/entities/client";
+import { clientId } from "../../domain/valueObjects/client/clientId";
+import { clientName } from "../../domain/valueObjects/client/clientName";
+import { clientEmail } from "../../domain/valueObjects/client/clientEmail";
+import { clientPhone } from "../../domain/valueObjects/client/clientPhone";
 
 type ClientPostgre = {
   id: string;
@@ -13,7 +13,7 @@ type ClientPostgre = {
   phone: string;
 };
 
-export class PostgreSQLRepository implements ClientRepository {
+export class PostgreSQLRepository implements IClientRepository {
   Connection: Pool;
 
   constructor(databaseUrl: string) {

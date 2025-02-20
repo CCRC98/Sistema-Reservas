@@ -1,7 +1,7 @@
-import { clientId } from "./clientId";
-import { clientName } from "./clientName";
-import { clientEmail } from "./clientEmail";
-import { clientPhone } from "./clientPhone";
+import { clientId } from "../valueObjects/client/clientId";
+import { clientName } from "../valueObjects/client/clientName";
+import { clientEmail } from "../valueObjects/client/clientEmail";
+import { clientPhone } from "../valueObjects/client/clientPhone";
 
 export class Client {
   id: clientId;

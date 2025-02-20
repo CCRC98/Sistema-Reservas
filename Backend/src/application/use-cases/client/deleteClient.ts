@@ -1,8 +1,8 @@
-import { clientId } from "../../../domain/entities/client/clientId";
-import { ClientRepository } from "../../../domain/repositories/IClientRepository";
+import { clientId } from "../../../domain/valueObjects/client/clientId";
+import { IClientRepository } from "../../../domain/repositories/IClientRepository";
 
 export class DeleteClient {
-  constructor(private repository: ClientRepository) {}
+  constructor(private repository: IClientRepository) {}
 
   async deleteClient(id: string): Promise<void> {
     await this.repository.deleteClient(new clientId(id));
