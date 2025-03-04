@@ -8,7 +8,7 @@ export class clientName {
 
   private ensureName() {
     if (this.value.length < 3) {
-      throw new Error("El nombre debe tener mas de tres caracteres.");
+      throw new Error("El nombre debe tener mas de 3 caracteres.");
     }
   }
 }

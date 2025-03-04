@@ -1,10 +1,10 @@
 import { Pool } from "pg";
-import { IClientRepository } from "../../domain/repositories/IClientRepository";
-import { Client } from "../../domain/entities/client";
-import { clientId } from "../../domain/valueObjects/client/clientId";
-import { clientName } from "../../domain/valueObjects/client/clientName";
-import { clientEmail } from "../../domain/valueObjects/client/clientEmail";
-import { clientPhone } from "../../domain/valueObjects/client/clientPhone";
+import { IClientRepository } from "../../../domain/repositories/IClientRepository";
+import { Client } from "../../../domain/entities/client/client";
+import { clientId } from "../../../domain/entities/client/valueObjects/clientId";
+import { clientName } from "../../../domain/entities/client/valueObjects/clientName";
+import { clientEmail } from "../../../domain/entities/client/valueObjects/clientEmail";
+import { clientPhone } from "../../../domain/entities/client/valueObjects/clientPhone";
 
 type ClientPostgre = {
   id: string;
@@ -16,24 +16,14 @@ type ClientPostgre = {
 export class PostgreSQLRepository implements IClientRepository {
   Connection: Pool;
 
-  constructor(databaseUrl: string) {
+  constructor() {
     this.Connection = new Pool({
-      connectionString: databaseUrl,
+      user: "postgres",
+      host: "localhost",
+      password: "pg12345",
+      database: "Sistema-Reservas",
+      port: 5432,
     });
-  }
-
-  async createClient(client: Client): Promise<void> {
-    const query = {
-      text: "INSERT INTO Client (id, name, email, phone) VALUES ($1, $2, $3, $4)",
-      values: [
-        client.id.value,
-        client.name.value,
-        client.email.value,
-        client.phone.value,
-      ],
-    };
-
-    await this.Connection.query(query);
   }
 
   async getClients(): Promise<Client[]> {
@@ -73,6 +63,20 @@ export class PostgreSQLRepository implements IClientRepository {
       new clientEmail(row.email),
       new clientPhone(row.phone)
     );
+  }
+
+  async createClient(client: Client): Promise<void> {
+    const query = {
+      text: "INSERT INTO Client (id, name, email, phone) VALUES ($1, $2, $3, $4)",
+      values: [
+        client.id.value,
+        client.name.value,
+        client.email.value,
+        client.phone.value,
+      ],
+    };
+
+    await this.Connection.query(query);
   }
 
   async updateClient(client: Client): Promise<void> {

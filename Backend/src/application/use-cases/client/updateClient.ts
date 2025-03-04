@@ -1,14 +1,14 @@
-import { Client } from "../../../domain/entities/client";
-import { clientEmail } from "../../../domain/valueObjects/client/clientEmail";
-import { clientId } from "../../../domain/valueObjects/client/clientId";
-import { clientName } from "../../../domain/valueObjects/client/clientName";
-import { clientPhone } from "../../../domain/valueObjects/client/clientPhone";
+import { Client } from "../../../domain/entities/client/client";
+import { clientEmail } from "../../../domain/entities/client/valueObjects/clientEmail";
+import { clientId } from "../../../domain/entities/client/valueObjects/clientId";
+import { clientName } from "../../../domain/entities/client/valueObjects/clientName";
+import { clientPhone } from "../../../domain/entities/client/valueObjects/clientPhone";
 import { IClientRepository } from "../../../domain/repositories/IClientRepository";
 
 export class UpdateClient {
   constructor(private repository: IClientRepository) {}
 
-  async updateClient(
+  async update(
     id: string,
     name: string,
     email: string,

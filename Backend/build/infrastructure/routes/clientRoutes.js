@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.clientRouter = void 0;
+var express_1 = require("express");
+var clientController_1 = require("../controllers/clientController");
+var controller = new clientController_1.ClientController();
+var clientRouter = (0, express_1.Router)();
+exports.clientRouter = clientRouter;
+clientRouter.get("/client/", controller.getClients);
+clientRouter.get("/client/:id", controller.getClientById);
+clientRouter.post("/client/", controller.createClient);
+clientRouter.put("/client/", controller.updateClient);
+clientRouter.delete("/client/", controller.deleteClient);

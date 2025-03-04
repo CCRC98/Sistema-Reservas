@@ -1,64 +1,94 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ServiceContainer } from "../../shared/serviceContainer";
 
 export class ClientController {
-  async getClients(req: Request, res: Response) {
-    const client = await ServiceContainer.client.getClients.getClients();
+  async getClients(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const client = await ServiceContainer.client.getClients.getAll();
 
-    return res.json(client).status(200);
-  }
-
-  async getClientById(req: Request, res: Response) {
-    const client = await ServiceContainer.client.getClientById.getClientById(
-      req.params.id
-    );
-
-    if (!client) {
-      return res.status(404).send();
+      return res.json(client).status(200);
+    } catch (error) {
+      next(error);
     }
-
-    return res.json(client).status(200);
   }
 
-  async createClient(req: Request, res: Response) {
-    const { id, name, email, phone } = req.body as {
-      id: string;
-      name: string;
-      email: string;
-      phone: string;
-    };
+  async getClientById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const client = await ServiceContainer.client.getClientById.getById(
+        req.params.id
+      );
 
-    await ServiceContainer.client.createClient.createClient(
-      id,
-      name,
-      email,
-      phone
-    );
+      return res.json(client).status(200);
+    } catch (error) {
+      if (error) {
+        return res.json(error).status(200);
+      }
 
-    return res.status(201).send();
+      next(error);
+    }
   }
 
-  async updateClient(req: Request, res: Response) {
-    const { id, name, email, phone } = req.body as {
-      id: string;
-      name: string;
-      email: string;
-      phone: string;
-    };
+  async createClient(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const { id, name, email, phone } = req.body as {
+        id: string;
+        name: string;
+        email: string;
+        phone: string;
+      };
 
-    await ServiceContainer.client.updateClient.updateClient(
-      id,
-      name,
-      email,
-      phone
-    );
+      await ServiceContainer.client.createClient.create(id, name, email, phone);
 
-    return res.status(204).send();
+      return res.status(201).send();
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async DeleteClient(req: Request, res: Response) {
-    await ServiceContainer.client.deleteClient.deleteClient(req.params.id);
+  async updateClient(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const { id, name, email, phone } = req.body as {
+        id: string;
+        name: string;
+        email: string;
+        phone: string;
+      };
 
-    return res.status(204).send();
+      await ServiceContainer.client.updateClient.update(id, name, email, phone);
+
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteClient(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      await ServiceContainer.client.deleteClient.delete(req.params.id);
+
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
 }

@@ -3,9 +3,10 @@ import { DeleteClient } from "../application/use-cases/client/deleteClient";
 import { GetClientById } from "../application/use-cases/client/getClientById";
 import { GetClients } from "../application/use-cases/client/getClients";
 import { UpdateClient } from "../application/use-cases/client/updateClient";
-import { PostgreSQLRepository } from "../infrastructure/repositories/clientPostgreSQLRepository";
+import { PostgreSQLRepository } from "../infrastructure/persistence/repositories/PostgreSQLRepository";
+import { InMemmoryRepository } from "../infrastructure/persistence/repositories/inMemmoryRepository";
 
-const ClientRepository = new PostgreSQLRepository("url");
+const ClientRepository = new InMemmoryRepository();
 
 export const ServiceContainer = {
   client: {
