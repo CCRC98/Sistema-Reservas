@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 require("reflect-metadata");
-var typeorm_1 = require("typeorm");
+const typeorm_1 = require("typeorm");
+const Client_1 = require("./entities/Client");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: "localhost",
@@ -11,8 +12,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
     password: "pg12345",
     database: "Sistema-Reservas",
     synchronize: true,
-    logging: true,
-    entities: [],
+    logging: false,
+    entities: [Client_1.ClientTypeOrm],
     subscribers: [],
     migrations: [],
 });

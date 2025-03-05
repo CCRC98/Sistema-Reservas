@@ -8,43 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostgreSQLRepository = void 0;
-var pg_1 = require("pg");
-var client_1 = require("../../../domain/entities/client/client");
-var clientId_1 = require("../../../domain/entities/client/valueObjects/clientId");
-var clientName_1 = require("../../../domain/entities/client/valueObjects/clientName");
-var clientEmail_1 = require("../../../domain/entities/client/valueObjects/clientEmail");
-var clientPhone_1 = require("../../../domain/entities/client/valueObjects/clientPhone");
-var PostgreSQLRepository = /** @class */ (function () {
-    function PostgreSQLRepository() {
+const pg_1 = require("pg");
+const client_1 = require("../../../domain/entities/client/client");
+const clientId_1 = require("../../../domain/entities/client/valueObjects/clientId");
+const clientName_1 = require("../../../domain/entities/client/valueObjects/clientName");
+const clientEmail_1 = require("../../../domain/entities/client/valueObjects/clientEmail");
+const clientPhone_1 = require("../../../domain/entities/client/valueObjects/clientPhone");
+class PostgreSQLRepository {
+    constructor() {
         this.Connection = new pg_1.Pool({
             user: "postgres",
             host: "localhost",
@@ -53,111 +26,65 @@ var PostgreSQLRepository = /** @class */ (function () {
             port: 5432,
         });
     }
-    PostgreSQLRepository.prototype.getClients = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var query, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = {
-                            text: "Select * FROM Client",
-                        };
-                        return [4 /*yield*/, this.Connection.query(query)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result.rows.map(function (row) {
-                                return new client_1.Client(new clientId_1.clientId(row.id), new clientName_1.clientName(row.name), new clientEmail_1.clientEmail(row.email), new clientPhone_1.clientPhone(row.phone));
-                            })];
-                }
-            });
+    getClients() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = {
+                text: "Select * FROM Client",
+            };
+            const result = yield this.Connection.query(query);
+            return result.rows.map((row) => new client_1.Client(new clientId_1.clientId(row.id), new clientName_1.clientName(row.name), new clientEmail_1.clientEmail(row.email), new clientPhone_1.clientPhone(row.phone)));
         });
-    };
-    PostgreSQLRepository.prototype.getClientById = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query, result, row;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = {
-                            text: "SELECT * FROM Client WHERE id = $1",
-                            values: [id.value],
-                        };
-                        return [4 /*yield*/, this.Connection.query(query)];
-                    case 1:
-                        result = _a.sent();
-                        if (result.rows.length === 0) {
-                            return [2 /*return*/, null];
-                        }
-                        row = result.rows[0];
-                        return [2 /*return*/, new client_1.Client(new clientId_1.clientId(row.id), new clientName_1.clientName(row.name), new clientEmail_1.clientEmail(row.email), new clientPhone_1.clientPhone(row.phone))];
-                }
-            });
+    }
+    getClientById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = {
+                text: "SELECT * FROM Client WHERE id = $1",
+                values: [id.value],
+            };
+            const result = yield this.Connection.query(query);
+            if (result.rows.length === 0) {
+                return null;
+            }
+            const row = result.rows[0];
+            return new client_1.Client(new clientId_1.clientId(row.id), new clientName_1.clientName(row.name), new clientEmail_1.clientEmail(row.email), new clientPhone_1.clientPhone(row.phone));
         });
-    };
-    PostgreSQLRepository.prototype.createClient = function (client) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = {
-                            text: "INSERT INTO Client (id, name, email, phone) VALUES ($1, $2, $3, $4)",
-                            values: [
-                                client.id.value,
-                                client.name.value,
-                                client.email.value,
-                                client.phone.value,
-                            ],
-                        };
-                        return [4 /*yield*/, this.Connection.query(query)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    }
+    createClient(client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = {
+                text: "INSERT INTO Client (id, name, email, phone) VALUES ($1, $2, $3, $4)",
+                values: [
+                    client.id.value,
+                    client.name.value,
+                    client.email.value,
+                    client.phone.value,
+                ],
+            };
+            yield this.Connection.query(query);
         });
-    };
-    PostgreSQLRepository.prototype.updateClient = function (client) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = {
-                            text: "UPDATE Client SET name = $1, email = $2, phone = $3 where id = $4",
-                            values: [
-                                client.name.value,
-                                client.email.value,
-                                client.phone.value,
-                                client.id.value,
-                            ],
-                        };
-                        return [4 /*yield*/, this.Connection.query(query)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    }
+    updateClient(client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = {
+                text: "UPDATE Client SET name = $1, email = $2, phone = $3 where id = $4",
+                values: [
+                    client.name.value,
+                    client.email.value,
+                    client.phone.value,
+                    client.id.value,
+                ],
+            };
+            yield this.Connection.query(query);
         });
-    };
-    PostgreSQLRepository.prototype.deleteClient = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = {
-                            text: "DELETE FROM Client WHERE id = $1",
-                            values: [id.value],
-                        };
-                        return [4 /*yield*/, this.Connection.query(query)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    }
+    deleteClient(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = {
+                text: "DELETE FROM Client WHERE id = $1",
+                values: [id.value],
+            };
+            yield this.Connection.query(query);
         });
-    };
-    return PostgreSQLRepository;
-}());
+    }
+}
 exports.PostgreSQLRepository = PostgreSQLRepository;

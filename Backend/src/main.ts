@@ -1,5 +1,6 @@
 import * as express from "express";
 import { clientRouter } from "./infrastructure/routes/clientRoutes";
+import { AppDataSource } from "./infrastructure/persistence/typeorm/config";
 
 const app = express();
 
@@ -24,6 +25,12 @@ app.use(
   }
 );
 
-app.listen(3000, () => {
-  console.log("Servidor corriendo en 3000");
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Base de datos conectada satisfactoriamente.");
+
+    app.listen(3000, () => {
+      console.log("Servidor funcionando en el puerto 3000.");
+    });
+  })
+  .catch((error) => console.error("Conexion a base de datos fallida.", error));

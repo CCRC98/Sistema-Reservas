@@ -9,6 +9,6 @@ clientRouter.get("/client/", controller.getClients);
 clientRouter.get("/client/:id", controller.getClientById);
 clientRouter.post("/client/", controller.createClient);
 clientRouter.put("/client/", controller.updateClient);
-clientRouter.delete("/client/", controller.deleteClient);
+clientRouter.delete("/client/:id", controller.deleteClient);
 
 export { clientRouter };

@@ -2,7 +2,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "pg": "^8.13.1",
+    "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.21"
   },
@@ -11,14 +11,14 @@
     "@types/node": "^22.13.9",
     "@types/pg": "^8.11.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "node build/main.js",
-    "build": "npx tsc ./src/main.ts --outDir ./build/",
+    "build": "npx tsc --project tsconfig.json",
     "dev": "npx ts-node ./src/main.ts"
   },
   "keywords": [],

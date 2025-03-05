@@ -1,3 +1,4 @@
+import { ClientRepositoryTypeOrm } from "../infrastructure/persistence/typeorm/repositories/clientRepository";
 import { CreateClient } from "../application/use-cases/client/createClient";
 import { DeleteClient } from "../application/use-cases/client/deleteClient";
 import { GetClientById } from "../application/use-cases/client/getClientById";
@@ -6,7 +7,7 @@ import { UpdateClient } from "../application/use-cases/client/updateClient";
 import { PostgreSQLRepository } from "../infrastructure/persistence/repositories/PostgreSQLRepository";
 import { InMemmoryRepository } from "../infrastructure/persistence/repositories/inMemmoryRepository";
 
-const ClientRepository = new InMemmoryRepository();
+const ClientRepository = new ClientRepositoryTypeOrm();
 
 export const ServiceContainer = {
   client: {

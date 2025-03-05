@@ -1,16 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.clientId = void 0;
-var clientId = /** @class */ (function () {
-    function clientId(value) {
+class clientId {
+    constructor(value) {
         this.value = value;
         this.ensureLengthId();
     }
-    clientId.prototype.ensureLengthId = function () {
+    ensureLengthId() {
         if (this.value.length < 5) {
             throw new Error("Id debe tener mas de 5 caracteres");
         }
-    };
-    return clientId;
-}());
+    }
+}
 exports.clientId = clientId;
