@@ -3,9 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const clientRoutes_1 = require("./infrastructure/routes/clientRoutes");
 const config_1 = require("./infrastructure/persistence/typeorm/config");
+const roomRoutes_1 = require("./infrastructure/routes/roomRoutes");
 const app = express();
 app.use(express.json());
 app.use(clientRoutes_1.clientRouter);
+app.use(roomRoutes_1.roomRouter);
 app.use((err, req, res, next) => {
     if (err instanceof Error) {
         console.error(err.stack);

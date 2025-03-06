@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { ClientTypeOrm } from "./entities/Client";
+import { RoomTypeOrm } from "./entities/Room";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
   database: "Sistema-Reservas",
   synchronize: true,
   logging: false,
-  entities: [ClientTypeOrm],
+  entities: [ClientTypeOrm, RoomTypeOrm],
   subscribers: [],
   migrations: [],
 });

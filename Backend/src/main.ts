@@ -1,12 +1,14 @@
 import * as express from "express";
 import { clientRouter } from "./infrastructure/routes/clientRoutes";
 import { AppDataSource } from "./infrastructure/persistence/typeorm/config";
+import { roomRouter } from "./infrastructure/routes/roomRoutes";
 
 const app = express();
 
 app.use(express.json());
 
 app.use(clientRouter);
+app.use(roomRouter);
 
 app.use(
   (
