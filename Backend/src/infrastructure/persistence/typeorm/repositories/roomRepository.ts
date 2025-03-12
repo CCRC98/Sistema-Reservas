@@ -15,6 +15,13 @@ export class RoomRepositoryTypeOrm implements IRoomRepository {
     this.repository = AppDataSource.getRepository(RoomTypeOrm);
   }
 
+  async existRoom(number: roomNumber): Promise<boolean> {
+    const existRoom = await this.repository.exists({
+      where: { number: number.value },
+    });
+    return existRoom;
+  }
+
   async getRooms(): Promise<Room[]> {
     const rooms = await this.repository.find();
     return rooms.map(

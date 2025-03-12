@@ -9,9 +9,9 @@ export class ClientController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const client = await ServiceContainer.client.getClients.getAll();
+      const clients = await ServiceContainer.client.getClients.getAll();
 
-      return res.json(client).status(200);
+      return res.status(200).json(clients);
     } catch (error) {
       next(error);
     }
@@ -27,10 +27,10 @@ export class ClientController {
         req.params.id
       );
 
-      return res.json(client).status(200);
+      return res.status(200).json(client);
     } catch (error) {
-      if (error) {
-        return res.json(error).status(200);
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
       }
 
       next(error);
@@ -54,6 +54,9 @@ export class ClientController {
 
       return res.status(201).send();
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
+      }
       next(error);
     }
   }
@@ -75,6 +78,9 @@ export class ClientController {
 
       return res.status(204).send();
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
+      }
       next(error);
     }
   }
@@ -89,6 +95,9 @@ export class ClientController {
 
       return res.status(204).send();
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(404).json({ message: error.message });
+      }
       next(error);
     }
   }

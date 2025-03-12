@@ -4,8 +4,6 @@ import { DeleteClient } from "../application/use-cases/client/deleteClient";
 import { GetClientById } from "../application/use-cases/client/getClientById";
 import { GetClients } from "../application/use-cases/client/getClients";
 import { UpdateClient } from "../application/use-cases/client/updateClient";
-import { PostgreSQLRepository } from "../infrastructure/persistence/repositories/PostgreSQLRepository";
-import { InMemmoryRepository } from "../infrastructure/persistence/repositories/inMemmoryRepository";
 import { RoomRepositoryTypeOrm } from "../infrastructure/persistence/typeorm/repositories/roomRepository";
 import { GetRooms } from "../application/use-cases/room/getRooms";
 import { GetRoomById } from "../application/use-cases/room/getRoomById";

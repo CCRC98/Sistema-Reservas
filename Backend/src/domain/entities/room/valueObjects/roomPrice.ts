@@ -3,6 +3,7 @@ export class roomPrice {
 
   constructor(value: number) {
     this.value = value;
+    this.ensurePrice();
   }
 
   private ensurePrice() {

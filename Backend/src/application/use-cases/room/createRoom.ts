@@ -14,6 +14,12 @@ export class CreateRoom {
     type: string,
     price: number
   ): Promise<void> {
+    const existRoom = await this.repository.existRoom(new roomNumber(number));
+
+    if (existRoom) {
+      throw new Error("El numero de habitacion ya se encuentra registrado.");
+    }
+
     const room = new Room(
       new roomId(id),
       new roomNumber(number),

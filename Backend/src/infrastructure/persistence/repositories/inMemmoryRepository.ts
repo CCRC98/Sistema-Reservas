@@ -5,6 +5,10 @@ import { IClientRepository } from "../../../domain/repositories/IClientRepositor
 export class InMemmoryRepository implements IClientRepository {
   private client: Client[] = [];
 
+  existClient(id: clientId): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+
   async getClients(): Promise<Client[]> {
     return this.client;
   }

@@ -14,6 +14,12 @@ export class UpdateClient {
     email: string,
     phone: string
   ): Promise<void> {
+    const existClient = await this.repository.existClient(new clientId(id));
+
+    if (!existClient) {
+      throw new Error("Cliente no encontrado.");
+    }
+
     const client = new Client(
       new clientId(id),
       new clientName(name),

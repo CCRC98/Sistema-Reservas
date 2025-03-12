@@ -21,6 +21,14 @@ class ClientRepositoryTypeOrm {
     constructor() {
         this.repository = config_1.AppDataSource.getRepository(Client_1.ClientTypeOrm);
     }
+    existClient(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const existClient = yield this.repository.exists({
+                where: { id: id.value },
+            });
+            return existClient;
+        });
+    }
     getClients() {
         return __awaiter(this, void 0, void 0, function* () {
             const clients = yield this.repository.find();

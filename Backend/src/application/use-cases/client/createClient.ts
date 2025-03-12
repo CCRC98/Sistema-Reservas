@@ -14,6 +14,12 @@ export class CreateClient {
     email: string,
     phone: string
   ): Promise<void> {
+    const existClient = await this.repository.existClient(new clientId(id));
+
+    if (existClient) {
+      throw new Error("El cliente ya se encuentra registrado.");
+    }
+
     const client = new Client(
       new clientId(id),
       new clientName(name),

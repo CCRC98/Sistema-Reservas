@@ -28,8 +28,8 @@ export class RoomController {
 
       return res.status(200).json(room);
     } catch (error) {
-      if (error) {
-        return res.status(200).json(error);
+      if (error instanceof Error) {
+        return res.status(200).json({ message: error.message });
       }
 
       next(error);
@@ -53,6 +53,9 @@ export class RoomController {
 
       return res.status(201).json({ message: "Habitacion creada" });
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(200).json(error.message);
+      }
       next(error);
     }
   }
@@ -74,6 +77,9 @@ export class RoomController {
 
       return res.status(204).json({ message: "Actualizacion exitosa." });
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(200).json({ message: error.message });
+      }
       next(error);
     }
   }
@@ -90,6 +96,9 @@ export class RoomController {
 
       return res.status(204).json({ message: "Habitacion eliminada." });
     } catch (error) {
+      if (error instanceof Error) {
+        return res.status(200).json({ message: error.message });
+      }
       next(error);
     }
   }

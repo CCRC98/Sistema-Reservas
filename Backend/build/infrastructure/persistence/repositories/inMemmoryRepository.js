@@ -14,6 +14,9 @@ class InMemmoryRepository {
     constructor() {
         this.client = [];
     }
+    existClient(id) {
+        throw new Error("Method not implemented.");
+    }
     getClients() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.client;

@@ -21,6 +21,10 @@ class CreateClient {
     }
     create(id, name, email, phone) {
         return __awaiter(this, void 0, void 0, function* () {
+            const existClient = yield this.repository.existClient(new clientId_1.clientId(id));
+            if (existClient) {
+                throw new Error("El cliente ya se encuentra registrado.");
+            }
             const client = new client_1.Client(new clientId_1.clientId(id), new clientName_1.clientName(name), new clientEmail_1.clientEmail(email), new clientPhone_1.clientPhone(phone));
             return this.repository.createClient(client);
         });

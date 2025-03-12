@@ -26,6 +26,10 @@ export class PostgreSQLRepository implements IClientRepository {
     });
   }
 
+  existClient(id: clientId): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+
   async getClients(): Promise<Client[]> {
     const query = {
       text: "Select * FROM Client",

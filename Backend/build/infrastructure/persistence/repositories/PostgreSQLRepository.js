@@ -26,6 +26,9 @@ class PostgreSQLRepository {
             port: 5432,
         });
     }
+    existClient(id) {
+        throw new Error("Method not implemented.");
+    }
     getClients() {
         return __awaiter(this, void 0, void 0, function* () {
             const query = {

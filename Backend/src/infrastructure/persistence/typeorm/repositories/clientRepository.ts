@@ -15,6 +15,13 @@ export class ClientRepositoryTypeOrm implements IClientRepository {
     this.repository = AppDataSource.getRepository(ClientTypeOrm);
   }
 
+  async existClient(id: clientId): Promise<boolean> {
+    const existClient = await this.repository.exists({
+      where: { id: id.value },
+    });
+    return existClient;
+  }
+
   async getClients(): Promise<Client[]> {
     const clients = await this.repository.find();
     return clients.map(
